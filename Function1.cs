@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 
 namespace FlexTweak.Functions
 {
@@ -22,9 +23,14 @@ namespace FlexTweak.Functions
         {
             _logger.LogInformation("C# HTTP trigger function processed a request.");
 
+            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+
+            var data = JsonConvert.DeserializeObject(requestBody).ToString();
+
             var message = new Message(new string[] { "ryabushenko.serhiy@gmail.com" }, 
-                "Test email async", 
-                "This is the content from our async email.", null);
+                "NEW REQUEST",
+                data, 
+                null);
 
             await _emailSender.SendEmailAsync(message);
 
