@@ -17,15 +17,13 @@ namespace FlexTweak.Functions
             _emailSender = emailSender; 
         }
 
-        [Function("Function1")]
+        [Function("email")]
         public async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post")] 
         HttpRequest req)
         {
             _logger.LogInformation("C# HTTP trigger function processed a request.");
 
-            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-
-            var data = JsonConvert.DeserializeObject(requestBody).ToString();
+            var data = JsonConvert.DeserializeObject(await new StreamReader(req.Body).ReadToEndAsync()).ToString();
 
             var message = new Message(new string[] { "ryabushenko.serhiy@gmail.com" }, 
                 "NEW REQUEST",
