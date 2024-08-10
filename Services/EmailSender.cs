@@ -38,7 +38,14 @@ using System.Threading.Tasks;
             emailMessage.Subject = message.Subject;
 
 
-            var bodyBuilder = new BodyBuilder { HtmlBody = string.Format("<h2 style='color:red;'>{0}</h2>", message.Content) };
+            var bodyBuilder = new BodyBuilder {
+                HtmlBody = string.Format("<div>Name: {0}</div><div>Company: {1}</div><div>Email: {2}</div><div>Phone: {3}</div><div>Message: {4}</div>", 
+                message.Content.Name, 
+                message.Content.Company,
+                message.Content.Email,
+                message.Content.Phone,
+                message.Content.Message)
+            };
 
             if (message.Attachments != null && message.Attachments.Any())
             {

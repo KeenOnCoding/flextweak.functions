@@ -18,11 +18,7 @@ var host = new HostBuilder()
         });
         services.AddCors(options =>
         {
-            options.AddPolicy("main",
-                              policy =>
-                              {
-                                  policy.WithOrigins("http://localhost:4200");
-                              });
+           // options.AddPolicy("main",policy =>{policy.WithOrigins("http://localhost:4200");});
         });
         services.AddApplicationInsightsTelemetryWorkerService();
         services.ConfigureFunctionsApplicationInsights();
